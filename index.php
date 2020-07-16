@@ -1,7 +1,12 @@
-<html>
-<a href="mdp.php">form</a>
+<!DOCTYPE html>
 
-<form method="post">
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css\style.css">
+</head>
+
+<form method="post" class="form">
     <p>
         <input type="text" name="username">
         <input type="password" name="password" />
@@ -21,7 +26,6 @@ try {
 $req = $bdd->prepare('SELECT username, password FROM utilisateur');
 $req->execute();
 $resultat = $req->fetch();
-
 $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
 
 if (!$resultat)
@@ -30,11 +34,12 @@ if (!$resultat)
 }
 else
 {
-    if ($isPasswordCorrect) {
+    if ($isPasswordCorrect AND $_POST['username'] == $resultat['username']) {
         session_start();
        
         $_SESSION['username'] = $resultat['username'];
-        echo 'Vous êtes connecté !';
+        header("Location: accueil.php?id=".$_SESSION['username']);
+
     }
     else {
         echo 'Mauvais identifiant ou mot de passe !';

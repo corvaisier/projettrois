@@ -1,0 +1,26 @@
+.body {
+    border: 1px solid black;
+    margin-left: 15em;
+    margin-right: 15em;
+}
+
+
+
+
+.header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+flex-direction: row;
+border: 1px solid black;
+}
+.header .utilisateur {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid black;
+}
+.presentation {
+    border: 1px solid black;
+
+}
