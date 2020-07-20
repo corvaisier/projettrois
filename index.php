@@ -23,17 +23,13 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$req = $bdd->prepare('SELECT username, password FROM utilisateur');
+$req = $bdd->prepare('SELECT username, password FROM utilisateur ');
 $req->execute();
 $resultat = $req->fetch();
-$isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+var_dump($resultat);
+if(isset($_POST['submit'])) {
+    $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
 
-if (!$resultat)
-{
-    echo 'Mauvais identifiant ou mot de passe !';
-}
-else
-{
     if ($isPasswordCorrect AND $_POST['username'] == $resultat['username']) {
         session_start();
        
@@ -44,7 +40,10 @@ else
     else {
         echo 'Mauvais identifiant ou mot de passe !';
     }
+
 }
+
+   
 
 
 ?>

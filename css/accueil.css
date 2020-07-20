@@ -24,3 +24,20 @@ border: 1px solid black;
     border: 1px solid black;
 
 }
+.article {
+    border: 1px solid black;
+    margin: 3em;
+    padding: 1em;
+}
+.sous_article {
+    border: 1px solid black;
+    margin: 2em;
+    padding: 1em;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    justify-content: center;
+}
