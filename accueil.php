@@ -40,18 +40,27 @@ try {
       <div class="element">
       </div>
 
-      <?php $req = $bdd->query('SELECT id_partenaire, logo, nom_acteur, texte  FROM partenaire');
+      <?php
+      //requête pour obtenir les info de la table partenaire et stockage de l'id du partenaire
+      $req = $bdd->query('SELECT id_partenaire, logo, nom_acteur, texte  FROM partenaire');
       $req->execute();
-
       // Affichage de chaque message 
       ?>
       <div class="article">
         <?php
         while ($donnees = $req->fetch()) {
-          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] . '></div><div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) . '</h3></div>' . htmlspecialchars($donnees['texte']) . '<button name="submit">lire la suite</button></div> ';
+          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] .'>
+          </div><div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) .'</h3>
+          </div>' . htmlspecialchars($donnees['texte']).
+            '<form method="post" class="form"   action="page_partenaire.php?">
+          <input type="hidden" value="' . htmlspecialchars($donnees["id_partenaire"]) . '" name="id_partenaire" class="none"/>
+          <input type="submit" value="lire la suite" name="submit"/>
+
+          </form></div>';
         }
 
         $req->closeCursor();
+
         ?>
       </div>
 

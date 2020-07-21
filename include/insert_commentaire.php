@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,6 +24,7 @@ try {
 </form>
 
 <?php
+
 
 if (isset($_POST['message'])) {
     $commentaire = htmlspecialchars($_POST['message']);
