@@ -16,9 +16,7 @@ try {
 
 <body>
     <header>
-        <?php
-        include "include/header.php"
-        ?>
+     
     </header>
     <footer>
 
