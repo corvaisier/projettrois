@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
     if ($isPasswordCorrect and $_POST['username'] == $resultat['username']) {
         session_start();
         // vérification de première connexion, si profil pas rempli redirection vers page de profil
-        if (empty($_SESSION['nom'])) {
+        if (!empty($_SESSION['nom'])) {
             header("Location: profile.php");
         } else {
             // récupération des éléments de session 
