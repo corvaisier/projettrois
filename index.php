@@ -38,7 +38,13 @@ if (isset($_POST['submit'])) {
         session_start();
         // vérification de première connexion, si profil pas rempli redirection vers page de profil
         if (!empty($_SESSION['nom'])) {
-            header("Location: profile.php");
+            header("Location: profile.php?username=".$_POST['username']);
+             // récupération des éléments de session 
+             $_SESSION['username'] = $resultat['username'];
+             $_SESSION['nom'] = $resultat['nom'];
+             $_SESSION['prenom'] = $resultat['prenom'];
+             $_SESSION['id_user'] = $resultat['id_user'];
+ 
         } else {
             // récupération des éléments de session 
             $_SESSION['username'] = $resultat['username'];
