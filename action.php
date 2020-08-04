@@ -29,16 +29,7 @@ if (isset($_POST['password']) and isset($_POST['username'])) {
     return "erreur";
 }
 
-
-
-
-
-
-
 ?>
-
-
-
 
 
 

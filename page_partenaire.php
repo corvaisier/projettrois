@@ -63,21 +63,28 @@ try {
         </form>
         <div class="like">
           <p>
+
             <?php
             //affichage du nmbr de like
-            $like_system = $bdd->prepare('SELECT * FROM dislike WHERE id_partenaire = ?');
+            $like_system = $bdd->prepare('SELECT * FROM likes WHERE id_partenaire = ?');
             $like_system->execute(array($id));
-            while ($nbr_like = $like_system->fetch()) {
+            $like = $like_system -> rowCount();
+
+            $dislike = $bdd->prepare('SELECT * FROM dislike WHERE id_partenaire = ?');
+            $dislike->execute(array($id));
+            $dislike= $dislike-> rowCount();
+
               echo '
-                <div class="likee">
-                  <a href="comment.php?a=1&id_partenaire=' . $id . '">like</a>
-                  ' . $nbr_like['likee'] . '
-                </div>
-                <div class="dislike">   
-                  <a href="comment.php?a=2&id_partenaire=' . $id . '">dislike</a>
-                  ' . $nbr_like['dislike'] . '
-                </div>';
-            }
+            <div class="likee">
+              <a href="comment.php?a=1&id_partenaire=' . $id . '">like</a>
+              ' . $like . '
+            </div>
+            <div class="dislike">   
+              <a href="comment.php?a=2&id_partenaire=' . $id . '">dislike</a>
+              ' . $dislike . '
+            </div>';
+            
+
             ?>
           </p>
 

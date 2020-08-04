@@ -18,7 +18,7 @@ try {
 </head>
 
 <body class="body">
-<a href="accueil.php">accueil</a> </br></br>
+  <a href="accueil.php">accueil</a> </br></br>
   <?php
 
 
@@ -27,36 +27,50 @@ try {
     $id_partenaire = $_GET["id_partenaire"];
     $id_user = $_SESSION["id_user"];
     $action = $_GET["a"];
-    $like_system = $bdd->prepare('SELECT * FROM dislike ');
-    $like_system->execute(array($id_partenaire));
-    $check = $like_system->fetch();
-    //stockage des variables et debugage
-   
-    $like_system->closeCursor();
 
-    if ($check["id_user"] == $id_user) {
-      echo "Vous avez déjà posté un avis";
-      //choisir si l'action rajoutera un like ou un dislike
-    } elseif ($action == 2) {
-      $like_insert = $bdd->prepare('INSERT INTO dislike (id_user, id_partenaire, likee, dislike) 
-      VALUES (:id_user, :id_partenaire, :likee, :dislike)');
-      $like_insert->execute(array(
-        'id_user' => $id_user,
-        'id_partenaire' => $id_partenaire,
-        'likee' => 0,
-        'dislike' => 1
-      ));
-      echo "votre dislike a bien été pris en compte ";
-    } elseif ($action == 1) {
-      $like_insert->execute(array(
-        'id_user' => $id_user,
-        'id_partenaire' => $id_partenaire,
-        'likee' => 1,
-        'dislike' => 0
-      ));
-      echo "votre like a bien été pris en compte ";
+    $dislike = $bdd->prepare('SELECT * FROM dislike WHERE id_partenaire = ?');
+    $dislike->execute(array($id_partenaire));
 
-      $like_insert->closeCursor();
+    //choisir si l'action rajoutera un like ou un dislike et si il y a déjà eu un like ou un dislike, supprimer le précédent
+    if ($action == 2) {
+      if ($dislike->rowCount() == 1) {
+        $del = $bdd->prepare('DELETE FROM dislike WHERE id_partenaire = ? AND id_user = ?');
+        $del->execute(array($id_partenaire, $id_user));
+        echo "nous avons bien retiré votre like";
+      } else {
+        $like_insert = $bdd->prepare('INSERT INTO dislike (id_user, id_partenaire) 
+        VALUES (:id_user, :id_partenaire)');
+        $like_insert->execute(array(
+          'id_user' => $id_user,
+          'id_partenaire' => $id_partenaire,
+        ));
+        //suppression automatique si le user avait mis un dislike
+        $del = $bdd->prepare('DELETE FROM likes WHERE id_partenaire = ? AND id_user = ?');
+        $del->execute(array($id_partenaire, $id_user));
+
+        echo "votre dislike a bien été pris en compte ";
+      }
+    }
+    if ($action == 1) {
+      $like = $bdd->prepare('SELECT * FROM likes WHERE id_partenaire = ? AND id_user = ?');
+      $like->execute(array($id_partenaire, $id_user));
+
+      if ($like->rowCount() == 1) {
+        $del = $bdd->prepare('DELETE FROM likes WHERE id_partenaire = ? AND id_user = ?');
+        $del->execute(array($id_partenaire, $id_user));
+        echo "nous avons bien retiré votre dislike";
+      } else {
+        $like_insert = $bdd->prepare('INSERT INTO likes (id_user, id_partenaire) 
+        VALUES (:id_user, :id_partenaire)');
+        $like_insert->execute(array(
+          'id_user' => $id_user,
+          'id_partenaire' => $id_partenaire,
+        ));
+        //suppression automatique si le user avait mis un dislike
+        $del = $bdd->prepare('DELETE FROM dislike WHERE id_partenaire = ? AND id_user = ?');
+        $del->execute(array($id_partenaire, $id_user));
+        echo "votre like a bien été pris en compte ";
+      }
     }
   }
   ?>
@@ -64,15 +78,24 @@ try {
   <?php
   if (isset($_POST['message'])) {
     $commentaire = htmlspecialchars($_POST['message']);
+    //modération de commentaire
     //Insertion du message
-    $req = $bdd->prepare('INSERT INTO commentaire (id_user, id_partenaire, date, commentaire) 
-        VALUES (:id_user, :id_partenaire, NOW(), :commentaire)');
-    $req->execute(array(
-      'id_user' => $_SESSION['id_user'],
-      'id_partenaire' => $_POST["id_partenaire"],
-      'commentaire' => $_POST['message']
-    ));
-    echo "votre commentaire a bien été posté";
+    $donnees = $bdd->prepare('SELECT * FROM commentaire WHERE id_partenaire = ? AND id_user = ?');
+    $donnees->execute(array($_POST['id_partenaire'], $_SESSION['id_user']));
+
+ 
+    if ($donnees->rowCount() == 1) {
+      echo "Vous avez déjà posté un commentaire pour ce partenaire";
+    } else {
+      $req = $bdd->prepare('INSERT INTO commentaire (id_user, id_partenaire, date, commentaire) 
+      VALUES (:id_user, :id_partenaire, NOW(), :commentaire)');
+      $req->execute(array(
+        'id_user' => $_SESSION['id_user'],
+        'id_partenaire' => $_POST["id_partenaire"],
+        'commentaire' => $_POST['message']
+      ));
+      echo "votre commentaire a bien été posté";
+    }
   } else {
     return "erreur";
     $req->closeCursor();

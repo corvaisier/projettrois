@@ -32,7 +32,7 @@ try {
 
         <?php
         var_dump($_SESSION['prenom']);
-        $username = $_GET['username'];
+        $username = $_SESSION['username'];
         //insertion du reste du profil
         if (isset($_POST['sub'])) {
             if (isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['question']) and isset($_POST["reponse"])) {

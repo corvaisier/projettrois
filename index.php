@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 
 <html>
@@ -7,64 +10,111 @@
     <link rel="stylesheet" href="css\style.css">
 </head>
 
-<form method="post" class="form">
-    <p>
-        <input type="text" name="username">
-        <input type="password" name="password" />
-        <input type="submit" value="Valider" name="submit" />
-    </p>
-</form>
+<body>
+    <form method="post" class="form">
+        <p>
+            <input type="text" name="username" placeholder="username">
+            <input type="password" name="password" placeholder="password" />
+            <input type="submit" value="Valider" name="submit" />
+        </p>
+    </form>
 
 
-<?php
-// connexion à la base de donnée avec prévention des bugs
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=projettrois;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-//récupération aux informations servant à se connecter
-$req = $bdd->prepare('SELECT * FROM utilisateur ');
-$req->execute();
-$resultat = $req->fetch();
-var_dump($resultat);
-
-//vérification des mots de passes et usernames
-if (isset($_POST['submit'])) {
-    $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
-
-    if ($isPasswordCorrect and $_POST['username'] == $resultat['username']) {
-        session_start();
-        // vérification de première connexion, si profil pas rempli redirection vers page de profil
-        if (!empty($_SESSION['nom'])) {
-            header("Location: profile.php?username=".$_POST['username']);
-             // récupération des éléments de session 
-             $_SESSION['username'] = $resultat['username'];
-             $_SESSION['nom'] = $resultat['nom'];
-             $_SESSION['prenom'] = $resultat['prenom'];
-             $_SESSION['id_user'] = $resultat['id_user'];
- 
-        } else {
-            // récupération des éléments de session 
-            $_SESSION['username'] = $resultat['username'];
-            $_SESSION['nom'] = $resultat['nom'];
-            $_SESSION['prenom'] = $resultat['prenom'];
-            $_SESSION['id_user'] = $resultat['id_user'];
-
-            // direction vers la page d'accueil pour les personnes ayant un profil complété
-            header("Location: accueil.php?id=" . $_SESSION['id_user']. 
-            "nom=" . $_SESSION['nom']. 
-            "prenom=" . $_SESSION['prenom'].
-            "username=" . $_SESSION['username'].
-            "id_user=" . $_SESSION['id_user']);
-
-        }
-    } else {
-        echo 'Mauvais identifiant ou mot de passe !';
+    <?php
+    // connexion à la base de donnée avec prévention des bugs
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=projettrois;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
     }
-}
-$req->closeCursor();
-?>
+
+    //récupération aux informations servant à se connecter
+    $req = $bdd->prepare('SELECT * FROM utilisateur ');
+    $req->execute();
+    while ($resultat = $req->fetch()) {
+
+        if (isset($_POST['submit'])) {
+            $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+            //vérification des mots de passes et usernames
+            if ($isPasswordCorrect and $_POST['username'] == $resultat['username']) {
+                // récupération des éléments de session 
+                $_SESSION['username'] = $resultat['username'];
+                $_SESSION['nom'] = $resultat['nom'];
+                $_SESSION['prenom'] = $resultat['prenom'];
+                $_SESSION['id_user'] = $resultat['id_user'];
+
+                // vérification de première connexion, si profil pas rempli redirection vers page de profil
+                if (empty($_SESSION['nom'])) {
+                    echo '<a href="profile.php">Veuillez remplir votre page de profil</a>';
+                } elseif (!empty($_SESSION['nom'])) {
+                    // direction vers la page d'accueil pour les personnes ayant un profil complété
+                    echo '<a href="accueil.php">accueil</a>';
+                } else {
+                    echo 'Mauvais identifiant ou mot de passe !';
+                }
+            }
+        }
+    }
+    $req->closeCursor();
+    ?>
+    <!-- bloc de récupération de mot de passe -->
+    <form method="post">
+        <input type="submit" value="password oublié" name="pass">
+    </form>
+
+    <?php
+    if (isset($_POST['pass'])) {
+        echo '<form method="post" >
+    <input type="text" name="user" placeholder="username?">
+    <input type="submit" name="re_username">
+  </form>';
+    }
+
+    if (isset($_POST['user'])) {
+        $user = htmlspecialchars($_POST['user']);
+        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE username = ?');
+        $req->execute(array($user));
+        $donnees = $req->fetch();
+        if ($req->rowCount() == 1) {
+            echo "<p>" . $donnees['question'] . "?";
+            echo '<form method="post" >
+                    <input type="text" name="reponse" placeholder="réponse?">
+                    <input type="submit" name="rep">
+                  </form>';
+        } else {
+            echo "username faux";
+        }
+    }
+    $req->closeCursor();
+    if (isset($_POST['reponse'])) {
+        $reponse = htmlspecialchars($_POST['reponse']);
+        $rep = $bdd->prepare('SELECT * FROM utilisateur WHERE reponse = ? ');
+        $rep->execute(array($reponse));
+        $_SESSION['reponse'] = $reponse;
+        if ($rep->rowCount() == 1) {
+            echo "entrez votre nouveau mot de passe";
+            echo '<form method="post">
+                <input type="text" name="password" placeholder="nouveau mot de passe?">
+                <input type="submit" name="mdp">
+              </form>';
+        } else {
+            echo "réponse fausse";
+        }
+    }
+    //insertion nouveau password
+    if (isset($_POST['mdp'])) {
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $info = $bdd->prepare('UPDATE utilisateur 
+        SET password = :password
+        WHERE reponse = :reponse');
+        $info->execute(array(
+            'password' => $password,
+            'reponse' => $_SESSION['reponse']
+        ));
+        echo "mot de passe changé";
+    }
+
+    ?>
+</body>
 
 </html>

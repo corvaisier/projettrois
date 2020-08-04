@@ -49,9 +49,9 @@ try {
       <div class="article">
         <?php
         while ($donnees = $req->fetch()) {
-          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] .'>
-          </div><div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) .'</h3>
-          </div>' . htmlspecialchars($donnees['texte']).
+          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] . '>
+          </div><div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) . '</h3>
+          </div>' . htmlspecialchars($donnees['texte']) .
             '<form method="post" class="form"   action="page_partenaire.php?">
           <input type="hidden" value="' . htmlspecialchars($donnees["id_partenaire"]) . '" name="id_partenaire" class="none"/>
           <input type="submit" value="lire la suite" name="submit"/>
