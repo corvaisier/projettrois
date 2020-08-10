@@ -28,11 +28,16 @@ try {
     ?>
   </header>
   <section class="presentation">
-    <h1>texte de présentation gbaf</h1>
-    <p>futur logo</p>
+    <div class="presentation_interne">
+      <h1>GBAF</h1>
+      <p>texte présentation de la GBAF et du site</p>
+    </div>
+    <div class="bord">
+      <img src="ressource\illustration.jpg">
+
+    </div>
+
   </section>
-
-
 
   <section class="acteurs">
     <h2>texte acteur et partenaire</h2>
@@ -49,12 +54,14 @@ try {
       <div class="article">
         <?php
         while ($donnees = $req->fetch()) {
-          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] . '>
-          </div><div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) . '</h3>
-          </div>' . htmlspecialchars($donnees['texte']) .
-            '<form method="post" class="form"   action="page_partenaire.php?">
-          <input type="hidden" value="' . htmlspecialchars($donnees["id_partenaire"]) . '" name="id_partenaire" class="none"/>
-          <input type="submit" value="lire la suite" name="submit"/>
+          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] . '></div> 
+          <div class="titre_contenu">
+          <div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) . '</h3></div>
+          <div class="contenu">' . htmlspecialchars($donnees['texte']) . '</div>
+          </div>
+            <form method="post" class="form"   action="page_partenaire.php?">
+          <input type="hidden" value="' . htmlspecialchars($donnees["id_partenaire"]) . '" name="id_partenaire"/>
+          <input type="submit" value="lire la suite" name="submit" class="button_partenaire"/>
 
           </form></div>';
         }
@@ -67,10 +74,6 @@ try {
 
     </div>
   </section>
-
-  <a href="admin.php">administration</a>
-  <a href="deco.php">se déconnecter</a>
-
 
   <footer>
 

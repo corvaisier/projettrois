@@ -14,6 +14,7 @@ try {
 <head>
   <meta charset="utf-8">
   <title>page partenaire</title>
+  <script src="https://kit.fontawesome.com/7a6b0f9b75.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css\partenaire.css">
 </head>
 
@@ -76,11 +77,11 @@ try {
 
               echo '
             <div class="likee">
-              <a href="comment.php?a=1&id_partenaire=' . $id . '">like</a>
+              <a href="comment.php?a=1&id_partenaire=' . $id . '"><i class="fas fa-thumbs-up pouce"></i></a>
               ' . $like . '
             </div>
             <div class="dislike">   
-              <a href="comment.php?a=2&id_partenaire=' . $id . '">dislike</a>
+              <a href="comment.php?a=2&id_partenaire=' . $id . '"><i class="fas fa-thumbs-down pouce"></i></a>
               ' . $dislike . '
             </div>';
             

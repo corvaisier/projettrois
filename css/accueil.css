@@ -1,44 +1,110 @@
 .body {
-    border: 1px solid black;
-    margin-left: 15em;
-    margin-right: 15em;
+    margin-left: 100px;
+    margin-right: 100px;
 }
-
-
-
 
 .header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-flex-direction: row;
-border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
 }
+
 .header .utilisateur {
     display: flex;
-    flex-direction: row;
+    padding: 20px;
     justify-content: center;
-    border: 1px solid black;
 }
-.presentation {
-    border: 1px solid black;
 
+.utilisateur :link {
+    color: brown;
 }
+
+.utilisateur img {
+    width: 50%;
+}
+
+.username {
+    margin-top: 20px;
+}
+
+.presentation {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.presentation_interne {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.bord {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
 .article {
     border: 1px solid black;
-    margin: 3em;
-    padding: 1em;
-}
-.sous_article {
-    border: 1px solid black;
-    margin: 2em;
-    padding: 1em;
+    margin: 10px;
+    padding: 10px;
 }
 
+.sous_article {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.logo {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.logo img {
+    width: 50%;
+}
+
+.sous_article .titre_contenu {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+}
+
+.sous_article .contenu {
+    overflow: hidden;
+    height: 50px;
+}
+
+.sous_article .logo {
+    display: flex;
+    align-items: center;
+}
+
+.sous_article form.form {
+    display: flex;
+    align-items: flex-end;
+}
 
 .footer {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border-top: 1px solid black;
     justify-content: center;
+    align-items: center;
+}
+
+.mentions_legales a {
+    margin: 10px;
+    color: brown;
+}
+
+.contact a {
+    margin: 10px;
+    color: brown;
 }

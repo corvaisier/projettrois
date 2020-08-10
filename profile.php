@@ -31,7 +31,6 @@ try {
     <footer>
 
         <?php
-        var_dump($_SESSION['prenom']);
         $username = $_SESSION['username'];
         //insertion du reste du profil
         if (isset($_POST['sub'])) {

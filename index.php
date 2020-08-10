@@ -6,19 +6,24 @@ session_start();
 <html>
 
 <head>
+    <title>GBAF</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css\style.css">
 </head>
 
-<body>
-    <form method="post" class="form">
-        <p>
-            <input type="text" name="username" placeholder="username">
-            <input type="password" name="password" placeholder="password" />
-            <input type="submit" value="Valider" name="submit" />
-        </p>
-    </form>
-
+<body class="test">
+    <div class="title">
+        <img src="ressource\gbaf.png">
+    </div>
+    <section>
+        <form method="post" class="form">
+            <p>
+                <input type="text" name="username" placeholder="username">
+                <input type="password" name="password" placeholder="password" />
+                <input type="submit" value="Valider" name="submit" />
+            </p>
+        </form>
+    </section>
 
     <?php
     // connexion à la base de donnée avec prévention des bugs
@@ -48,73 +53,79 @@ session_start();
                     echo '<a href="profile.php">Veuillez remplir votre page de profil</a>';
                 } elseif (!empty($_SESSION['nom'])) {
                     // direction vers la page d'accueil pour les personnes ayant un profil complété
-                    echo '<a href="accueil.php">accueil</a>';
-                } else {
-                    echo 'Mauvais identifiant ou mot de passe !';
-                }
-            }
+                    echo '
+                    <div class="button">
+                    <a href="accueil.php">accueil</a>
+                    </div>
+                    ';
+                } 
+            } 
         }
     }
     $req->closeCursor();
     ?>
     <!-- bloc de récupération de mot de passe -->
-    <form method="post">
+    <form method="post" class="mdp">
         <input type="submit" value="password oublié" name="pass">
     </form>
 
-    <?php
-    if (isset($_POST['pass'])) {
-        echo '<form method="post" >
-    <input type="text" name="user" placeholder="username?">
-    <input type="submit" name="re_username">
-  </form>';
-    }
 
-    if (isset($_POST['user'])) {
-        $user = htmlspecialchars($_POST['user']);
-        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE username = ?');
-        $req->execute(array($user));
-        $donnees = $req->fetch();
-        if ($req->rowCount() == 1) {
-            echo "<p>" . $donnees['question'] . "?";
-            echo '<form method="post" >
+    <section>
+        <?php
+        if (isset($_POST['pass'])) {
+            echo '<form method="post" class="mdp">
+                    <input type="text" name="user" placeholder="username?">
+                    <input type="submit" name="re_username">
+                  </form>';
+        }
+
+        if (isset($_POST['user'])) {
+            $user = htmlspecialchars($_POST['user']);
+            $req = $bdd->prepare('SELECT * FROM utilisateur WHERE username = ?');
+            $req->execute(array($user));
+            $donnees = $req->fetch();
+            if ($req->rowCount() == 1) {
+                echo "<p class='mdp'>" . $donnees['question'] . "? </p>";
+                echo '<form method="post" class="mdp">
                     <input type="text" name="reponse" placeholder="réponse?">
                     <input type="submit" name="rep">
                   </form>';
-        } else {
-            echo "username faux";
+            } else {
+                echo "<p class='mdp'>username faux</p>";
+            }
         }
-    }
-    $req->closeCursor();
-    if (isset($_POST['reponse'])) {
-        $reponse = htmlspecialchars($_POST['reponse']);
-        $rep = $bdd->prepare('SELECT * FROM utilisateur WHERE reponse = ? ');
-        $rep->execute(array($reponse));
-        $_SESSION['reponse'] = $reponse;
-        if ($rep->rowCount() == 1) {
-            echo "entrez votre nouveau mot de passe";
-            echo '<form method="post">
+        $req->closeCursor();
+        if (isset($_POST['reponse'])) {
+            $reponse = htmlspecialchars($_POST['reponse']);
+            $rep = $bdd->prepare('SELECT * FROM utilisateur WHERE reponse = ? ');
+            $rep->execute(array($reponse));
+            $_SESSION['reponse'] = $reponse;
+            if ($rep->rowCount() == 1) {
+                echo "<p class='mdp'>entrez votre nouveau mot de passe</p>";
+                echo '<form method="post" class="mdp">
                 <input type="text" name="password" placeholder="nouveau mot de passe?">
                 <input type="submit" name="mdp">
               </form>';
-        } else {
-            echo "réponse fausse";
+            } else {
+                echo "<p class='mdp'>réponse fausse</p>";
+            }
         }
-    }
-    //insertion nouveau password
-    if (isset($_POST['mdp'])) {
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $info = $bdd->prepare('UPDATE utilisateur 
+        //insertion nouveau password
+        if (isset($_POST['mdp'])) {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $info = $bdd->prepare('UPDATE utilisateur 
         SET password = :password
         WHERE reponse = :reponse');
-        $info->execute(array(
-            'password' => $password,
-            'reponse' => $_SESSION['reponse']
-        ));
-        echo "mot de passe changé";
-    }
+            $info->execute(array(
+                'password' => $password,
+                'reponse' => $_SESSION['reponse']
+            ));
+            echo "<p class='mdp'>mot de passe changé</p>";
+        }
+        ?>
 
-    ?>
+    </section>
+
 </body>
 
 </html>

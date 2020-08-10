@@ -1,5 +1,23 @@
-.form {
+.title {
+    display: flex;
+    justify-content: center;
 
-    text-align: center;
-    padding-top: 10em;
+}
+
+.test {
+    text-align: center;   
+    justify-content: center;
+}
+
+
+.button {
+    font-size: 40px;
+}
+
+.button :link {
+    color: brown;
+}
+
+.mdp { 
+    margin: 10px;
 }
