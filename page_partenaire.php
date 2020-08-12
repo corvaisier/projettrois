@@ -45,6 +45,7 @@ try {
   ';
     $req->closeCursor();
     ?>
+
   </section>
 
   <section class="comment">
@@ -69,22 +70,24 @@ try {
             //affichage du nmbr de like
             $like_system = $bdd->prepare('SELECT * FROM likes WHERE id_partenaire = ?');
             $like_system->execute(array($id));
-            $like = $like_system -> rowCount();
+            $like = $like_system->rowCount();
 
             $dislike = $bdd->prepare('SELECT * FROM dislike WHERE id_partenaire = ?');
             $dislike->execute(array($id));
-            $dislike= $dislike-> rowCount();
+            $dislike = $dislike->rowCount();
 
-              echo '
+            echo '
             <div class="likee">
+            ' . $like . '
               <a href="comment.php?a=1&id_partenaire=' . $id . '"><i class="fas fa-thumbs-up pouce"></i></a>
-              ' . $like . '
+              
             </div>
-            <div class="dislike">   
+            <div class="dislike"> 
+            ' . $dislike . '  
               <a href="comment.php?a=2&id_partenaire=' . $id . '"><i class="fas fa-thumbs-down pouce"></i></a>
-              ' . $dislike . '
+              
             </div>';
-            
+
 
             ?>
           </p>

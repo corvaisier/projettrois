@@ -4,7 +4,7 @@ echo "
 <div class='footer'>
 <p>|</p>
     <div class='mentions_legales'>
-        <a href='mentions_legales.php'>Mentions légales</a>
+        <a href='Mentions_legales.php'>Mentions légales</a>
     </div>
     <p>|</p>
     <div class='contact'>

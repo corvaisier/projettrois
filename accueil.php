@@ -54,8 +54,12 @@ try {
       <div class="article">
         <?php
         while ($donnees = $req->fetch()) {
-          echo '<div class="sous_article"><div class="logo"><img src=' . $donnees['logo'] . '></div> 
+          echo '<div class="sous_article">
+          <div class="conteneur">
+          <div class="logo"><img src=' . $donnees['logo'] . '></div> 
+          </div>
           <div class="titre_contenu">
+          <div class="titre_contenu_bouton">
           <div class="titre"> <h3>' . htmlspecialchars($donnees['nom_acteur']) . '</h3></div>
           <div class="contenu">' . htmlspecialchars($donnees['texte']) . '</div>
           </div>
@@ -63,7 +67,8 @@ try {
           <input type="hidden" value="' . htmlspecialchars($donnees["id_partenaire"]) . '" name="id_partenaire"/>
           <input type="submit" value="lire la suite" name="submit" class="button_partenaire"/>
 
-          </form></div>';
+          </form></div>
+          </div>';
         }
 
         $req->closeCursor();

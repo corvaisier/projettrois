@@ -1,9 +1,12 @@
 <?php
   echo" 
+
   <div class='header'>
+  <div class='conteneur'>
      <div class='logo'>
      <img src='ressource\gbaf.png'>
      </div>
+  </div>
      <div class='utilisateur'>
        <img src='ressource/user_icon.png' alt='user icon'>  
        <div class='username'>

@@ -6,28 +6,33 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
+include "include/header.php"
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <title>profil</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css\profil.css">
+
 </head>
 
-<body>
-    <header>
+<body class="body">
 
-    </header>
+    <section class="form_profil">
+        <h3 class="titre">Veuillez compléter votre profil</h3>
+        <form method="post">
+            <input type="text" name="nom" placeholder="Veuillez renseigner votre nom" />
+            <input type="text" name="prenom" placeholder="Veuillez renseigner votre prenom" />
+            <p>Pour plus de sécurité, pour récupérer votre mot de passe veuillez renseigner une question secrète</p>
+            <input type="text" name="question" placeholder="Question secrète" />
+            <input type="text" name="reponse" placeholder="Réponse" />
+            <input type="submit" name="sub">
+        </form>
+    </section>
 
-    <h3 class="titre">Veuillez compléter votre profil</h3>
-    <form method="post">
-        <input type="text" name="nom" placeholder="Veuillez renseigner votre nom" />
-        <input type="text" name="prenom" placeholder="Veuillez renseigner votre prenom" />
-        <p>Pour plus de sécurité, pour récupérer votre mot de passe veuillez renseigner une question secrète</p>
-        <input type="text" name="question" placeholder="Question secrète" />
-        <input type="text" name="reponse" placeholder="Réponse" />
-        <input type="submit" name="sub">
-    </form>
     <footer>
 
         <?php
@@ -39,15 +44,15 @@ try {
                 $info = $bdd->prepare('UPDATE utilisateur 
                 SET prenom = :prenom, nom = :nom, question = :question, reponse = :reponse
                 WHERE username = :username');
-               $info->execute(array(
-                   'prenom' => $_POST['prenom'],
-                   'nom' => $_POST['nom'],
-                   'question' => $_POST['question'],
-                   'reponse' => $_POST['reponse'],
-                   'username' => $username
-               ));
-           
-              echo "Votre profil a bien été complété
+                $info->execute(array(
+                    'prenom' => $_POST['prenom'],
+                    'nom' => $_POST['nom'],
+                    'question' => $_POST['question'],
+                    'reponse' => $_POST['reponse'],
+                    'username' => $username
+                ));
+
+                echo "Votre profil a bien été complété
               <a href='accueil.php'>Accueil</a>";
             } else {
                 echo "veuillez remplir tous les champs";

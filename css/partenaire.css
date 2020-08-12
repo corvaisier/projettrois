@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: row;
+    border-bottom: 1px solid black;
 }
 
 .header .utilisateur {
@@ -19,6 +20,7 @@
 .utilisateur :link {
     color: brown;
 }
+
 .utilisateur img {
     width: 50%;
 }
@@ -28,13 +30,11 @@
 }
 
 .article {
-    border-top: 1px solid black;
     margin: 3em;
-    padding: 1em;
 }
 
 .affichage_comment {
-    border-top: 1px solid black;
+    border: 1px solid black;
     margin: 3em;
     padding: 1em;
 }
@@ -42,9 +42,14 @@
 .header_comment {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
+.titre_comment {
+    font-size: 40px;
 }
 
 .right {
@@ -61,7 +66,7 @@
 .pouce {
     font-size: 2em;
     color: black;
- }
+}
 
 .billet {
     border: 1px solid black;
@@ -69,16 +74,35 @@
     margin: 0.5em;
     padding: 0.5em;
 }
+
+form.new_comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 5%;
+    padding: 1em;
+}
+
 .like {
     margin: 1em;
     margin-right: 1px;
     padding: 1em;
-    border: 3px solid black;
+    border: 1px solid black;
+    border-radius: 5%;
     display: flex;
     flex-direction: row;
     text-align: center;
     justify-content: space-between;
 
+}
+
+.likee {
+    padding: 10px;
+}
+
+.dislike {
+    padding: 10px;
 }
 
 .footer {
@@ -97,4 +121,64 @@
 .contact a {
     margin: 10px;
     color: brown;
+}
+
+@media screen and (max-width: 740px) {
+    .body {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .affichage_comment {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .logo img {
+        min-width: 150px;
+        max-width: 150px;
+        width: 80%;
+    }
+
+    .titre_comment {
+        font-size: 25px;
+
+    }
+
+    form .new_comment {
+        padding: 2px;
+        margin: 5px;
+    }
+
+    .like {
+        padding: 1px;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    .body {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .header {
+        display: block;
+    }
+    .header_comment {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .conteneur  {   
+        display: flex;
+        justify-content: center;
+    }
+    .logo img {
+        width: 100%;
+    }
+    .utilisateur img {
+        min-width: 50px;
+        width: 30%;
+    }
+
 }

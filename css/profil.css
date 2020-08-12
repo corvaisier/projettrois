@@ -1,0 +1,107 @@
+.body {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+
+}
+
+.header .utilisateur {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+}
+
+.utilisateur :link {
+    color: brown;
+}
+
+.utilisateur img {
+    width: 50%;
+}
+
+.username {
+    margin-top: 20px;
+}
+
+.logo img {
+    width: 50%;
+}
+
+.form_profil {
+    padding: 50px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid black;
+    justify-content: center;
+    align-items: center;
+}
+
+.mentions_legales a {
+    margin: 10px;
+    color: brown;
+}
+
+.contact a {
+    margin: 10px;
+    color: brown;
+}
+
+@media screen and (max-width: 740px) {
+    .body {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .logo {
+        min-width: 150px;
+        max-width: 150px;
+    }
+
+    .logo img {
+        width: 80%;
+    }
+    .utilisateur img {
+        min-width: 50px;
+        width: 25%;
+    }
+    .username {
+        margin-top: 0px;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    .body {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .header {
+        display: block;
+    }
+
+    .conteneur {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo img {
+        width: 100%;
+    }
+
+    .utilisateur img {
+        min-width: 50px;
+        width: 25%;
+    }
+
+}
