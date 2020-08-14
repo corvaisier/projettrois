@@ -3,6 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="description" content="GBAF extranet banquaire">
 </head>
 
 <body>

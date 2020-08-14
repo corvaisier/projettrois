@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="GBAF extranet banquaire">
     <link rel="stylesheet" href="css\style.css">
 </head>
 

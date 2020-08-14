@@ -14,6 +14,7 @@ try {
 <head>
   <meta charset="utf-8">
   <title>page partenaire</title>
+  <meta name="description" content="GBAF extranet banquaire">
   <script src="https://kit.fontawesome.com/7a6b0f9b75.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css\partenaire.css">
 </head>

@@ -7,6 +7,7 @@ session_start();
 
 <head>
     <title>GBAF</title>
+    <meta name="description" content="GBAF extranet banquaire">
     <meta charset="utf-8">
     <link rel="stylesheet" href="css\style.css">
 </head>
@@ -50,16 +51,14 @@ session_start();
 
                 // vérification de première connexion, si profil pas rempli redirection vers page de profil
                 if (empty($_SESSION['nom'])) {
-                    echo '<a href="profile.php">Veuillez remplir votre page de profil</a>';
+                    header('Location:profile.php');
+                    exit();
                 } elseif (!empty($_SESSION['nom'])) {
                     // direction vers la page d'accueil pour les personnes ayant un profil complété
-                    echo '
-                    <div class="button">
-                    <a href="accueil.php">accueil</a>
-                    </div>
-                    ';
-                } 
-            } 
+                    header('Location:accueil.php');
+                    exit();
+                }
+            }
         }
     }
     $req->closeCursor();

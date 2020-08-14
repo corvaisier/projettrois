@@ -15,6 +15,8 @@ try {
 <head>
   <meta charset="utf-8">
   <title>accueil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GBAF extranet banquaire">
   <link rel="stylesheet" href="css\accueil.css">
 
 
@@ -30,7 +32,7 @@ try {
   <section class="presentation">
     <div class="presentation_interne">
       <h1>GBAF</h1>
-      <p>texte présentation de la GBAF et du site</p>
+      <p> GBAF est une plateforme permettant de vous présenter tous les partenaires associés au milieu banquier. Vous pourrez échanger, commenter, liker</p>
     </div>
     <div class="bord">
       <img src="ressource\illustration.jpg">
@@ -40,7 +42,7 @@ try {
   </section>
 
   <section class="acteurs">
-    <h2>texte acteur et partenaire</h2>
+    <h2>Voici nos acteurs et partenaires</h2>
     <div class="conteneur">
       <div class="element">
       </div>

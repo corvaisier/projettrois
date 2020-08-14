@@ -15,6 +15,7 @@ try {
   <meta charset="utf-8">
   <title>commentaires</title>
   <link rel="stylesheet" href="css\comment.css">
+  <meta name="description" content="GBAF extranet banquaire">
 </head>
 
 <body class="body">

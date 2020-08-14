@@ -15,6 +15,7 @@ try {
   <meta charset="utf-8">
   <title>Contact</title>
   <script src="https://kit.fontawesome.com/7a6b0f9b75.js" crossorigin="anonymous"></script>
+  <meta name="description" content="GBAF extranet banquaire">
   <link rel="stylesheet" href="css\partenaire.css">
 </head>
 
