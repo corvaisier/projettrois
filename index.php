@@ -106,7 +106,7 @@ session_start();
                 <input type="submit" name="mdp">
               </form>';
             } else {
-                echo "<p class='mdp'>réponse fausse</p>";
+                echo "<p class='mdp'>reponse fausse</p>";
             }
         }
         //insertion nouveau password
