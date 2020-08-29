@@ -17,13 +17,9 @@ session_start();
         <img src="ressource\gbaf.png">
     </div>
     <section>
-        <form method="post" class="form">
-            <p>
-                <input type="text" name="username" placeholder="username">
-                <input type="password" name="password" placeholder="password" />
-                <input type="submit" value="Valider" name="submit" />
-            </p>
-        </form>
+    <?php
+    phpinfo();
+    ?>
     </section>
 
     <?php
@@ -106,7 +102,7 @@ session_start();
                 <input type="submit" name="mdp">
               </form>';
             } else {
-                echo "<p class='mdp'>reponse fausse</p>";
+                echo "<p class='mdp'>rayponse fausse</p>";
             }
         }
         //insertion nouveau password
